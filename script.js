@@ -10,24 +10,30 @@ const useValidRegex = () => {
     return regex.test(userInput.value);
 }
 *****************************************************/
-const input = userInput.value
 
-const userFunction = (input) => {
+/****************************************************
+const userFunction = () => {
     const regex = /[\D_]/g;
-    const newInput = input.replace(regex, '');
-    return newInput;
+    const alt = userInput.value.replace(regex, '');
+    return alt;
 }
+****************************************************/
 
 const validRegex = () => {
-    const regex = /[1]*[/d]{3}[\d]{3}[\d]{4}/;
-    return regex.test(userFunction);
-}
+const countryCode = '^(1\\s?)?';
+  const areaCode = '(\\([0-9]{3}\\)|[0-9]{3})';
+  const spacesDashes = '[\\s\\-]?';
+  const phoneNumber = '[0-9]{3}[\\s\\-]?[0-9]{4}$';
+  const phoneRegex = new RegExp(
+    `${countryCode}${areaCode}${spacesDashes}${phoneNumber}`);
+    return phoneRegex.test(userInput.value);
+  }
 
 
-
-const checkFunction = (input) => {
-   if (input === "") {
+const checkFunction = () => {
+   if (userInput.value === "") {
     alert("Please provide a phone number");
+    return;
   } else if (validRegex() == true) {
     results.textContent = `Valid US number: ${userInput.value}`
   } else {
@@ -39,15 +45,12 @@ const clearFunction = () => {
       results.textContent = "";
 };
 
+checkBtn.addEventListener("click", () => {
+    checkFunction();
+    userInput.value = "";
+});
 
 
-
-
-checkBtn.addEventListener("click", checkFunction);
-
-
-clearBtn.addEventListener("click", clearFunction);
-
-console.log(userFunction(input));
-console.log(validRegex())
-// 1?\W*([2-9][0-8][0-9])\W*([2-9][0-9]{2})\W*([0-9]{4})(\se?x?t?(\d*))?
+clearBtn.addEventListener("click", () => {
+    clearFunction();
+});
